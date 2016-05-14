@@ -60,12 +60,12 @@ var memberList = [{
 //   })
 // };
 //這次要使用SQL builder來幫我們簡化這些動作
-//
+
 db("member")
   .insert({
-    name: "Test",
-    account: "account",
-    password: "password"
+      name: "Test-name1",
+    account: "account1",
+    password: "password1"
   })
   .then(function(result) {
     var insertedId = result[0];
@@ -74,5 +74,12 @@ db("member")
   .catch(function(err) {
     console.log(err);
   });
+//db.query("
+//
+//  ALTER TABLE `table_name` AUTO_INCREMENT=1
+//
+//")
 
-  //所以現在我們可以開始幫我們的資料庫撰寫資料model方便之後使用
+
+
+//所以現在我們可以開始幫我們的資料庫撰寫資料model方便之後使用

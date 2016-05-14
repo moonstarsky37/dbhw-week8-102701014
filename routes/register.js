@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Member = require('../models/Member');
-var Article = require('../models/Article');
+var Article = require('../models/Article');//no use in register.js
 var async = require('async');
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,6 +31,7 @@ router.post('/', function(req, res, next) {
     account : req.body.account,
     password : req.body.password
   });
+
   newMember.save(function(err) {
     if(err) {
       next(err);

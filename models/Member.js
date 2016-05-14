@@ -34,6 +34,26 @@ Member.get = function(memberId, cb) {
     })
 }
 
+//Login
+Member.getByAccount = function(memberAccount, memberPassword, cb) {
+  db.select().from("member").where({
+    account : memberAccount,
+    password : memberPassword
+  })
+      .map(function(row){
+        return new Member(row);
+      })
+      .then(function(memberList) {
+        if(memberList.length) {
+          cb(null, memberList[0]);
+        } else {
+          //這邊要產生一個NotFound err給前端，因為error很常用到，我們會獨立出去一個檔案
+          cb(new GeneralErrors.NotFound());
+        }
+      })
+}
+
+
 //我們接下來嘗試是否可以正確取得資料
 //接下來完成其他會用到的function
 //Instance Function
@@ -76,6 +96,8 @@ Member.prototype.save = function (cb) {
       });
   }
 };
+
+
 
 //這樣基本上就完成了一個DataModel會用到的method, 之後有需要的時候再過來新增
 module.exports = Member;

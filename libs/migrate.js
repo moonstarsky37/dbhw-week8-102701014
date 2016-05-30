@@ -2,9 +2,9 @@ var db = require('./db');
 var bcrypt = require('bcryptjs');
 var async = require('async');
 
-var salt = "trust-cafe-password-salt-testcheck";
+var salt = "blog-password-salt-edu-nccu-soslab";
 //上次我們使用了一般的方法直接連接DB
-var clientList = [{
+var memberList = [{
   name : "William1",
   password : "password1",
   account : "account1"
@@ -21,7 +21,8 @@ var clientList = [{
 }];
 
 
-db("client")
+
+db("member")
   .insert({
       name: "Test-name1",
     account: "account1",
@@ -34,5 +35,3 @@ db("client")
   .catch(function(err) {
     console.log(err);
   });
-
-//所以現在我們可以開始幫我們的資料庫撰寫資料model方便之後使用

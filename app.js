@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+// connect to each router
 var routes = require('./routes/index');
 var register = require('./routes/register');
 var users = require('./routes/users');
@@ -27,6 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// connect to each pages
 app.use('/', routes);
 app.use('/users', users);
 app.use('/article', article);

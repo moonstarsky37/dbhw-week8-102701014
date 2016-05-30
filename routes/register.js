@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Member = require('../models/Customer');
+var Member = require('../models/Member');
+var Article = require('../models/Article');//no use in register.js
 var async = require('async');
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -9,14 +10,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// customers test
-router.get('/customers/:customerId', function(req, res) {
-  Customer.get(req.params.customerId, function(err, customer) {
+//members test
+router.get('/members/:memberId', function(req, res) {
+  Member.get(req.params.memberId, function(err, member) {
     if(err) {
       res.status(err.code);
       res.json(err);
     } else {
-      res.json(customer);
+      res.json(member);
     }
   })
 
@@ -25,30 +26,25 @@ router.get('/customers/:customerId', function(req, res) {
 router.post('/', function(req, res, next) {
 
   //首先必須先產生出一個Member的物件在進行save
-  var newCustomer = new Customer({
+  var newMember = new Member({
     name : req.body.name,
     account : req.body.account,
-    password : req.body.password,
-    phone : req.body.phone,
-    email : req.body.email,
-    jobTitle : req.body.jobTitle,
-    address : req.body.address,
-    birthday : req.body.birthday
+    password : req.body.password
   });
 
-  newCustomer.save(function(err) {
+  newMember.save(function(err) {
     if(err) {
       next(err);
     } else {
       //再重新導向之前，我們要讓使用者登入，因此我們需要使用到session
-      req.session.customer = newCustomer;
+      req.session.member = newMember;
       res.redirect('/');
     }
   });
 });
 
 router.post('/logout', function(req, res, next) {
-  req.session.customer = null;
+  req.session.member = null;
   res.redirect('/');
 });
 
